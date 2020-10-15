@@ -1,23 +1,34 @@
 #include "Student.h"
 
 Student::Student() {
-	name = nullptr;
+	name = new char[1];
+	group = new char[1];
+	institution = new char[1];
+	name[0] = '\0';
 	year = 0;
-	group = nullptr;
-	inst = nullptr;
-	cout << "Constructor" << endl;
+	group[0] = '\0';
+	institution[0] = '\0';
+	cout << "Consructor 0" << endl;
 }
 
-Student::Student(const char* newName, int newYear, const char* newGroup, const char* newInst) {
+Student::Student(const char* newName, int newYear, const char* newGroup, const char* newInstitution) {
 	setName(newName);
 	setYear(newYear);
 	setGroup(newGroup);
-	setInst(newInst);
-	cout << "Constructor" << endl;
+	setInstitution(newInstitution);
+	cout << "Consructor 1" << endl;
 }
 
-void Student::show() {
-	cout << name << " " << year << " " << group << " " << inst << endl;
+Student::Student(const Student& obj) {
+	createRecord(obj.name, 1);
+	createRecord(obj.group, 2);
+	createRecord(obj.institution, 3);
+	year = obj.year;
+	cout << "Copiyng Consructor" << endl;
+};
+
+void Student::print() {
+	cout << name << "|" << year << "|" << group << "|" << institution << endl;
 }
 
 void Student::createRecord(const char* data, int sel) {
@@ -33,7 +44,7 @@ void Student::createRecord(const char* data, int sel) {
 		group = tmp;
 		break;
 	case 3:
-		inst = tmp;
+		institution = tmp;
 		break;
 	}
 }
@@ -41,6 +52,6 @@ void Student::createRecord(const char* data, int sel) {
 Student::~Student() {
 	if (name != nullptr) delete[] name;
 	if (group != nullptr) delete[] group;
-	if (inst != nullptr) delete[] inst;
+	if (institution != nullptr) delete[] institution;
 	cout << "Destructor" << endl;
 }
